@@ -1,4 +1,4 @@
-import type { TenantConfig } from "./registry";
+import { validateConfig, type TenantConfig } from "./registry";
 import type { Channel } from "./types";
 
 /**
@@ -14,7 +14,7 @@ const allEvents = (channels: Channel[]) => ({
   payment_sent: { channels },
 });
 
-export const SEED_TENANTS: { id: string; config: TenantConfig }[] = [
+const RAW_SEEDS: { id: string; config: Partial<TenantConfig> }[] = [
   {
     id: "safeguard",
     config: {
@@ -159,3 +159,16 @@ export const SEED_TENANTS: { id: string; config: TenantConfig }[] = [
     },
   },
 ];
+
+/**
+ * Seeds list only the dimensions they customise; the rest take their defaults through
+ * `validateConfig`, so adding a config dimension never requires touching this file.
+ * Invalid seed data fails fast at import time.
+ */
+export const SEED_TENANTS: { id: string; config: TenantConfig }[] = RAW_SEEDS.map(({ id, config }) => {
+  const result = validateConfig(config);
+  if (!result.ok) {
+    throw new Error(`Seed tenant "${id}" is invalid: ${result.issues.map((i) => `${i.path}: ${i.message}`).join("; ")}`);
+  }
+  return { id, config: result.config };
+});
