@@ -26,7 +26,7 @@ export class MemoryStore implements ConfigStore {
   async listTenants(): Promise<Tenant[]> {
     return Object.values(this.state.tenants)
       .map(clone)
-      .sort((a, b) => a.createdAt.localeCompare(b.createdAt) || a.id.localeCompare(b.id));
+      .sort((a, b) => a.createdAt.localeCompare(b.createdAt)); // stable: ties keep insertion order
   }
 
   async getTenant(id: string): Promise<Tenant | null> {

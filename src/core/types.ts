@@ -88,9 +88,11 @@ export interface ProcessResult {
 }
 
 export interface ProcessContext {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- dimensions read their siblings by id
   config: Record<string, any>;
   claim: ParsedClaim;
   /** Output keys produced so far by dimensions earlier in the registry. */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- output of earlier dimensions
   result: Record<string, any>;
 }
 
@@ -118,6 +120,7 @@ export interface Dimension<Id extends string = string, S extends z.ZodType = z.Z
   schema: S;
   defaults: () => z.infer<S>;
   /** Cross-field checks that a schema can't express. Paths are relative to the dimension. */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- sibling configs are looked up by id
   validate?: (value: z.infer<S>, config: any) => Issue[];
   /** Contribution to `processClaim`. */
   process?: (value: z.infer<S>, ctx: ProcessContext) => ProcessSlice | void;
