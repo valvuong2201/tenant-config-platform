@@ -1,6 +1,6 @@
 import { TenantEditor } from "@/ui/TenantEditor";
 
-export default async function TenantPage({ params }: PageProps<"/tenants/[id]">) {
+export default async function TenantPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   return <TenantEditor key={id} tenantId={id} />;
 }
