@@ -2,6 +2,7 @@ import type { z } from "zod";
 import { approval } from "./dimensions/approval";
 import { branding } from "./dimensions/branding";
 import { claimTypes } from "./dimensions/claimTypes";
+import { currency } from "./dimensions/currency";
 import { customFields } from "./dimensions/customFields";
 import { notifications } from "./dimensions/notifications";
 import { sla } from "./dimensions/sla";
@@ -19,7 +20,7 @@ import {
  * module that calls `defineDimension` and add it here: validation, diff, history, the API and
  * the admin UI's fallback editor/result views pick it up from this list.
  */
-export const dimensions = [branding, claimTypes, approval, notifications, sla, customFields] as const;
+export const dimensions = [branding, claimTypes, approval, notifications, sla, customFields, currency] as const;
 
 type AnyDimension = (typeof dimensions)[number];
 export type DimensionId = AnyDimension["id"];
