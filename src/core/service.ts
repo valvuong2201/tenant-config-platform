@@ -1,4 +1,4 @@
-import { evaluateClaim, validateConfig, type TenantConfig } from "./registry";
+import { defaultConfig, evaluateClaim, validateConfig, type TenantConfig } from "./registry";
 import { SEED_TENANTS } from "./seeds";
 import type { Issue, ProcessResult } from "./types";
 import {
@@ -32,6 +32,14 @@ function mustBeValid(input: unknown): TenantConfig {
   return result.config;
 }
 
+/**
+ * Tenants saved before a dimension existed have no value for it. Fill such gaps with the
+ * dimension's defaults on read so editors and the runtime always see a complete config.
+ */
+function hydrate<T extends { config: TenantConfig }>(record: T): T {
+  return { ...record, config: { ...defaultConfig(), ...record.config } };
+}
+
 /** Application layer: validation, versioning and processing on top of a `ConfigStore`. */
 export class TenantService {
   private seeding: Promise<void> | null = null;
@@ -58,14 +66,14 @@ export class TenantService {
 
   async list(): Promise<Tenant[]> {
     await this.ensureSeeded();
-    return this.store.listTenants();
+    return (await this.store.listTenants()).map(hydrate);
   }
 
   async get(id: string): Promise<Tenant> {
     await this.ensureSeeded();
     const tenant = await this.store.getTenant(id);
     if (!tenant) throw new NotFoundError(`Tenant "${id}"`);
-    return tenant;
+    return hydrate(tenant);
   }
 
   async create(input: { id?: string; config: unknown; note?: string }): Promise<Tenant> {
@@ -88,7 +96,7 @@ export class TenantService {
 
   async history(id: string): Promise<TenantVersion[]> {
     await this.ensureSeeded();
-    return this.store.listVersions(id);
+    return (await this.store.listVersions(id)).map(hydrate);
   }
 
   /** Restores an old version by saving a new one with its config, so history is never rewritten. */
