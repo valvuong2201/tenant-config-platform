@@ -6,7 +6,7 @@ import { NeonStore } from "@/store/neonStore";
 import type { ConfigStore } from "@/store/types";
 
 function createStore(): ConfigStore {
-  if (process.env.DATABASE_URL) return new NeonStore(process.env.DATABASE_URL);
+  if (process.env.DATABASE_URL) return NeonStore.fromUrl(process.env.DATABASE_URL);
   if (process.env.VERCEL) {
     console.warn("DATABASE_URL is not set: using a per-instance in-memory store. Set it to a Neon connection string.");
     return new MemoryStore();

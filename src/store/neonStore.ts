@@ -30,18 +30,25 @@ const toVersion = (row: Row): TenantVersion => ({
   rolledBackFrom: (row.rolled_back_from as number | null) ?? null,
 });
 
-/** Postgres (Neon) store. Writes are single statements, so a save and its history row are atomic. */
+/** Anything that can run parameterised SQL (`$1`, `$2`, ...) and return rows. */
+export interface SqlRunner {
+  query(text: string, params?: unknown[]): Promise<Row[]>;
+}
+
+/** Postgres store (Neon in production). Writes are single statements, so a save and its history row are atomic. */
 export class NeonStore implements ConfigStore {
-  private readonly sql;
   private schemaReady: Promise<void> | null = null;
 
-  constructor(connectionString: string) {
-    this.sql = neon(connectionString);
+  constructor(private readonly sql: SqlRunner) {}
+
+  static fromUrl(connectionString: string): NeonStore {
+    const client = neon(connectionString);
+    return new NeonStore({ query: async (text, params = []) => (await client.query(text, params)) as Row[] });
   }
 
   private async query(text: string, params: unknown[] = []): Promise<Row[]> {
     await this.ensureSchema();
-    return (await this.sql.query(text, params)) as Row[];
+    return this.sql.query(text, params);
   }
 
   private ensureSchema(): Promise<void> {
