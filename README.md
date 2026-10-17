@@ -120,17 +120,13 @@ that only for a quick look.
 boundary amounts), preview equals runtime, key-aware diffing, versioning, rollback and concurrency, the currency
 dimension, and the Postgres store's SQL against an in-process Postgres (PGlite).
 
-## Timeline (estimate)
+## Timeline
 
-Roughly 7 hours of focused work with an AI coding assistant:
+**Author's estimate:** _to be filled in by the candidate before submitting._
 
-| Phase | Estimate |
-|---|---|
-| Read the brief, settle schema and semantics, write down assumptions | 0.75 h |
-| Core: dimensions, validation, runtime, diff, versioned store, tests | 2.5 h |
-| API routes and Postgres store (tested against PGlite) | 1 h |
-| Admin UI: editors, preview, compare, history | 2 h |
-| Browser walkthrough, fixes, currency dimension, docs | 0.75 h |
+What the repository shows (`git log --date=iso`): the first commit is at 23:22 and the last at 23:33 on 2026-10-17
+(UTC+7), preceded by roughly 25 minutes of reading the brief, choosing the challenge and scaffolding. The AI assistant
+wrote most of the code in that window; the human time spent reviewing, deploying and learning the code is not captured here.
 
 ## Known limitations
 

@@ -21,10 +21,11 @@ missing field.
 ## 2. Create and configure a 4th tenant (no code)
 
 1. **Tenants → New tenant**. Name it "Mekong Mutual". The form validates as you type (company name is required).
-2. Enable OUTPATIENT and OPTICAL, add required documents, then set the auto-approval threshold to 1,000 and add a
-   second tier: the first tier's upper limit becomes the next tier's lower limit.
-3. Set SLA days for each enabled type (the SLA section lists exactly the enabled types) and add a custom field
-   "Policy number".
+2. Enable OPTICAL next to OUTPATIENT and type its required documents separated by commas (each becomes a chip). Set the
+   auto-approval threshold to 1,000, click **+ Add tier**, name the new tier "supervisor", then change the first tier's
+   upper limit to 10,000: the next tier's lower limit follows, so the ranges stay contiguous.
+3. The SLA section lists exactly the enabled claim types. OPTICAL starts empty and blocks saving until you enter days
+   (for example 4). Add a custom field: leaving the key blank shows an error; use label "Policy number", key `policyNo`.
 4. Try an invalid value: a negative threshold, or SLA of 0. The offending field turns red and **Create tenant** is disabled.
 5. Click **Create tenant**, then in the **Preview** panel run a claim: it uses the draft config via the same code as
    production. Then repeat on **Preview & run** with the saved tenant.

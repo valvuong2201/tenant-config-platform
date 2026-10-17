@@ -143,7 +143,14 @@ export function TagInput({ value, onChange, placeholder, invalid }: {
       <input
         value={draft}
         placeholder={value.length === 0 ? placeholder : "Add…"}
-        onChange={(e) => setDraft(e.target.value)}
+        onChange={(e) => {
+          // Typed or pasted commas split the text into chips, so "a, b" becomes two documents.
+          const parts = e.target.value.split(",");
+          if (parts.length === 1) return setDraft(e.target.value);
+          const added = parts.slice(0, -1).map((p) => p.trim()).filter(Boolean);
+          if (added.length > 0) onChange([...value, ...added]);
+          setDraft(parts[parts.length - 1]);
+        }}
         onKeyDown={(e) => {
           if (e.key === "Enter" || e.key === ",") {
             e.preventDefault();
