@@ -2,6 +2,7 @@ import type { ComponentType } from "react";
 import { ApprovalEditor } from "./ApprovalEditor";
 import { BrandingEditor } from "./BrandingEditor";
 import { ClaimTypesEditor } from "./ClaimTypesEditor";
+import { CurrencyEditor } from "./CurrencyEditor";
 import { CustomFieldsEditor } from "./CustomFieldsEditor";
 import { JsonEditor } from "./JsonEditor";
 import { NotificationsEditor } from "./NotificationsEditor";
@@ -17,6 +18,7 @@ const editors: Record<string, ComponentType<EditorProps<any>>> = {
   notifications: NotificationsEditor,
   sla: SlaEditor,
   customFields: CustomFieldsEditor,
+  currency: CurrencyEditor,
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
