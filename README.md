@@ -8,6 +8,8 @@ Submission for Papaya AI Engineering Challenge 15 (advanced).
 - **Live admin UI:** https://tenant-config-platform-bice.vercel.app (Vercel + Neon Postgres; see [Deploy](#deploy-vercel--neon))
 - **Demo script:** [DEMO.md](DEMO.md)
 - **Design decisions and assumptions:** [DECISIONS.md](DECISIONS.md)
+- **Raw AI conversation (required by the brief):** [ai-conversation/claude-code-session-export.zip](ai-conversation/claude-code-session-export.zip), the exported Claude Code session in which this project was built. It is unedited and mixes English and Vietnamese.
+- **Logical questions (Q1, Q4, Q5, Q8, Q9), answered in Vietnamese:** [LOGICAL_QUESTIONS.md](LOGICAL_QUESTIONS.md)
 
 ## What it does
 
