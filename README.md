@@ -5,7 +5,7 @@ described entirely by configuration. Onboarding a new one is a form, not a code 
 
 Submission for Papaya AI Engineering Challenge 15 (advanced).
 
-- **Live admin UI:** _to be added after deploy_ (see [Deploy](#deploy-vercel--neon))
+- **Live admin UI:** https://tenant-config-platform-bice.vercel.app (Vercel + Neon Postgres; see [Deploy](#deploy-vercel--neon))
 - **Demo script:** [DEMO.md](DEMO.md)
 - **Design decisions and assumptions:** [DECISIONS.md](DECISIONS.md)
 
