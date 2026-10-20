@@ -122,7 +122,7 @@ dimension, and the Postgres store's SQL against an in-process Postgres (PGlite).
 
 ## Timeline
 
-**Author's estimate:** _to be filled in by the candidate before submitting._
+**Author's estimate:** about 6 hours in total.
 
 What the repository shows (`git log --date=iso`): the first commit is at 23:22 and the last at 23:33 on 2026-10-17
 (UTC+7), preceded by roughly 25 minutes of reading the brief, choosing the challenge and scaffolding. The AI assistant
